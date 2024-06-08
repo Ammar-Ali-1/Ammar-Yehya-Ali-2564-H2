@@ -1,7 +1,7 @@
 import socket
 import threading
 
-def startServer():
+def Connect():
     server = socket.socket(socket.AF_INET , socket.SOCK_STREAM)
     server.bind(('127.0.0.1' , 44444))
     server.listen(5)
@@ -26,18 +26,18 @@ def serveClient(client_socket):
     while True :
         serviceNum = client_socket.recv(1024).decode()
 
-        if serviceNum == '1':
+        if serviceNum == '1' :
             balance = customers[customer_number]
             msg = "YOUR BALANCE IS NOW:  " + str(balance)
             client_socket.send(msg.encode())
 
-        elif serviceNum == '2':
+        elif serviceNum == '2' :
             amount = int(client_socket.recv(1024).decode())
             customers[customer_number] += amount
             msg = "DEPOSIT SUCCESSFUL. YOUR BALANCE IS NOW:  " + str(customers[customer_number])
             client_socket.send(msg.encode())
 
-        elif serviceNum == '3':
+        elif serviceNum == '3' :
             amount = int(client_socket.recv(1024).decode())
             if customers[customer_number] >= amount:
                 customers[customer_number] -= amount
@@ -55,4 +55,4 @@ def serveClient(client_socket):
 
 
 customers = {'00001': 2500 , '00002': 3600 , '00003' : 1800 , '00004' : 6300 , '00005' : 5000}
-startServer()
+Connect()
