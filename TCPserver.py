@@ -19,7 +19,7 @@ def serveClient(client_socket):
     if customer_number in customers:
         client_socket.send(b"Access complete.")
     else:
-        client_socket.sentb(b"Your Account Number is invalid. Connection will be terminated.")
+        client_socket.send(b"Your Account Number is invalid. Connection will be terminated.")
         client_socket.close()
         return
     
